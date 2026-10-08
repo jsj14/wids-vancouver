@@ -25,6 +25,10 @@
        dark panel and must never flip with light/dark mode */
     --hero-bg:#101B2E;
     --hero-brass:#C9A063;
+    /* fixed, theme-independent — the "send this to your boss" panel is a
+       deliberate solid-teal block, same reasoning as --hero-* above */
+    --panel-teal:#2B4F49;
+    --panel-teal-ink:#DCE8E5;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
@@ -93,7 +97,7 @@
   .section-inner{
     max-width:var(--maxw);
     margin-inline:auto;
-    padding-inline:max(20px, calc((100% - var(--maxw)) / 2 + 20px));
+    padding-inline:20px;
   }
   section > .section-inner{padding-block:96px;}
   @media (max-width:720px){
@@ -323,6 +327,35 @@
   @media (max-width:640px){ .register-panel{padding:44px 26px;} }
   .register-panel p:not(.eyebrow){margin-top:18px; max-width:52ch; color:var(--ink-soft);}
   .register-panel .cta-row{margin-top:34px;}
+
+  /* boss note — a deliberately solid-color panel (see --panel-teal, a
+     fixed token, same reasoning as --hero-bg) so it reads as a distinct
+     "bonus" block rather than another section in the theme-adaptive flow */
+  .boss-note{border-bottom:1px solid var(--line);}
+  .boss-panel{
+    background:var(--panel-teal);
+    border-radius:6px;
+    padding:60px 56px;
+    display:grid;
+    grid-template-columns:1.25fr auto;
+    gap:36px 48px;
+    align-items:center;
+  }
+  @media (max-width:760px){ .boss-panel{grid-template-columns:1fr; padding:44px 26px;} }
+  .boss-panel .eyebrow{color:var(--hero-brass);}
+  .boss-panel h2{color:#F5F4EF; max-width:20ch;}
+  .boss-panel p:not(.eyebrow){margin-top:16px; max-width:46ch; color:var(--panel-teal-ink);}
+  .boss-panel .btn-primary{
+    background:var(--hero-brass); color:#1B1103; border-color:var(--hero-brass);
+    white-space:nowrap;
+  }
+  .boss-panel .btn-primary:hover{background:#DCB876; border-color:#DCB876;}
+  .boss-panel .btn-primary svg{
+    width:14px; height:14px; margin-left:8px; vertical-align:-2px;
+  }
+  .boss-panel .boss-cta{display:flex; flex-direction:column; align-items:flex-start; gap:10px;}
+  .boss-panel .boss-note-fine{font-size:.78rem; color:var(--panel-teal-ink); opacity:.75;}
+  @media (max-width:760px){ .boss-panel .boss-cta{align-items:flex-start;} }
 
   /* footer */
   .site-footer{padding-block:48px 28px; border-bottom:none;}
@@ -629,6 +662,25 @@
     </div>
   </section>
 
+  <section class="boss-note" id="boss-note">
+    <div class="section-inner">
+      <div class="boss-panel reveal">
+        <div>
+          <p class="eyebrow">Get buy-in</p>
+          <h2>Send this to your boss. You&rsquo;re welcome.</h2>
+          <p>A one-page note &mdash; what WiDS Vancouver is, why a day away is worth it, and what to ask for &mdash; ready to forward as-is or edit first.</p>
+        </div>
+        <div class="boss-cta">
+          <a class="btn btn-primary" href="data:application/pdf;base64,JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIgL0Y0IDUgMCBSIC9GNSA2IDAgUiAvRjYgNyAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0Jhc2VGb250IC9UaW1lcy1Sb21hbiAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago1IDAgb2JqCjw8Ci9CYXNlRm9udCAvWmFwZkRpbmdiYXRzIC9OYW1lIC9GNCAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjYgMCBvYmoKPDwKL0Jhc2VGb250IC9TeW1ib2wgL05hbWUgL0Y1IC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNyAwIG9iago8PAovQmFzZUZvbnQgL1RpbWVzLUl0YWxpYyAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjYgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago4IDAgb2JqCjw8Ci9Db250ZW50cyAxMiAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDExIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9QYWdlTW9kZSAvVXNlTm9uZSAvUGFnZXMgMTEgMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iagoxMCAwIG9iago8PAovQXV0aG9yIChXaURTIFZhbmNvdXZlcikgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MTAwNzE4MzA1OC0wNycwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MTAwNzE4MzA1OC0wNycwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoV2h5IEknZCBsaWtlIHRvIGF0dGVuZCBXaURTIFZhbmNvdXZlcikgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iagoxMSAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDggMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iagoxMiAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxOTk0Cj4+CnN0cmVhbQpHYXVgVD4+czlHJ1JvNEhTPlFrPSY0TlkjckRpdXE2XGdnT1xEYC4wYzZCQi0iXlBDIyRKNTdMclFhXDtSaSI3WjQ9cjhcVTZUb0pqWkRBcTxlPVRTJE4kNSo3LjJKcHA6VlUtZDo+aW5EdXVKNWREYjIxWTlWSE4pOCIxTUBjPzklLjwkOydMZ15tZi1BP21DJEhtWk5rI0lwKihxVWhMcl0iclkmTk87V28pK1U3KScuVUBUJjdvWGUqRj1OSXNmISo3LmM/YD9nLjoxTXJKbkpGU2slK01lZm86VlhyOVkuR15NIj88aisuZlpENk5bZCwvZVRAYXB1cl9EMkxbYG9jI1tlXSE8ZWk5JDJwXT1MbHInUUpsQC00RHFEU0RqZ2hCXkVfN2sqUVFLLUY2VjFlKmBaaC5HaC9TW0lrOkIzP1FdbztMcTtBcW1xQiR1SDlGZWtCVUA9PlJYMSs5WztaaiIkLzIkKjt0NmJZdXNdV10hZ1c3YVw1Ti4kNWZNWCpRNVxQalFEY1JMMzM/UkFwUlJgJihJRFZlTjk3KV8wKUBpVTorM1I8QVZVSVYkT1BqKyY0NERWMDluYCQkXWVyVGZUYGlVZ1cjN05xPUJpN2Y/I0U5R1wnOCM6WEZURSgjWCkhLGtHRidbQyVZUFctXlQmQG8hQEg1IS0zc0txPiVPJHVgWGE/SWJmYyxJayQsXiYxTlo9LDNJY0VLK286bFQ3L2tMYC84WENVUG5iOy4kNXNiWi0/anJJNlU6YSovOjw/YG4kbmJSWk1ePnM6bDkmP2FXQi46Q2gsXTRaLjRhWGYpRylrWlZUTTxjczMsJCVBPC4oc0RUWXFUXW1EQmRHNzpCZk4lQyloQCI6VUA8X0tIXjtZKkxwb29IcnEpb0EycGU9Il9wOXNFNydfVlY2JWUyMTZQOGVVbGE7Y1ZULidsSTFJKV1sMklYQFslZWlPSzVFYD5KVSFSa3VYLlspYTo9X2g0dTVaVmpYUGlFIjMoUSkjTS1gSWQ4OGYrW1AoWjpxQ1hcLlZ0YUFlamE3P3BgRTFLNEhDKUI5THAsVVcoLnU5KHBlYkF0QldjVkJyNlpOZSFwRzc8NDZHQmpESFFYPS4qRmlGTitEbltgPGoka3Jfci9ddGRCPUVic0xcKElWVVJdJ2InQWRnPTtvKj0pXCEnSU5uWXE7My49NlU6XVdRYW87WzlsbyZpLlFyP14sNFFaYEM2JilIRUwuUjVjL0RsUF0kJj9HbU5FI0dyV0krVl1cKGo9S1E5XDk5Oic9IkMuZiIlNyNQLjRpJDA1VkcjKmhwR0YwaVJwJ0YxMz0mRC0lbnFMSU8lLjYjVDI0RzBeSWQ2MWVKN1IxRD1YMmlQUzcjcyk2MlYxLGM0NkFcdGFwSS9KRFg7TCNaVFcjdCUySCNyN25uV0U/Ok0kNENvLFVQLSY5XUNlQS5eIzBkSzRrR04kUzR0N15aIy1JQCRVQEZPInN1LT0xJmhxViI1NnRlQCpbXF0yS2ZRNUJyWUBfWlw4UjU5RzQwXEUnK1wzVz0zODwuK21SYzU4TGs5cmJgZC5cUixaIkp1ISFXXDVpIiYtQDJPSEkzN3Q4Xig1dFFxRj9UTkUsRGEzOUthUGJcVSRTaSEsJUxqIilxcipcbkdIKElCaFApbiYzXzozSFxBcilFOE88Q2FNZHJQWC48QDViXWhUZ1FpcUchZ0AuWyo5N2Q+ODxYbDtidUVmWF1nPlhycSRMLTE3J0MoNTswJV9uKShyRDNTbmlXUGlyK2MzLDkkSG4uKFNCbzM7YnVySiMvKkBpcyEpZks2Om1CRUQ4SUk1S0dgTTpVSydfUScuWSg0Qk1XMUc6WWgoPix0JUQ6LWQtYGBKU1l1RWgpUShtMFM+Jm1WLWxkOSI2dTJgYlQxLGBqI2FYOCwvKnIoa2pyMDdNMFlHVjkkNUhcLGNiYkZsc1xiX1lXTl80bUxIOj9vZm4oRmlVLkxyYztjZltyY1M6WG86NWw8blZIVHEsQT5Wa0goJCRwT2ozXlt0KzxSb0ZqQmZaRWE9UFlKPjksakJKcFVJXz1iUVxlTCE9XkZPIUhfbi5dVTU6RmJpSD9YTnRxdSpiUmktMi9VUGokIkcxJGxfayhCYj5UPCdCMl4xYm86Qj1PKy9BWz9uISNGRSQlJnJMVypPMyFLaDRTbllSSGVSPiQ4cFZCLWA1UEUzPi5eMklhKFpHJytrXE9aYTpzJkRGZmpuP2xaKCVgZmI4cUsoSTxrKShmVWFZayZoXmE+anRSciJMRWlXdCsiQCkmbWAmUTJyNnNpIklkcVk+YltLLVcnNy5QciUvWykzMWdKIyhdZGEtaU5Ba05Acjw9P2ZFPmhgXEtAQVBSYVBHLDlKWz4jWSEnPyEzSCRFV11KZWdsZUxHIk9mbyhZaCFqPUw2cGkpXV9ZYjMkLztjcTRrJiM0YldgWmpPcjBYITs3LitFOCRaaDNsPTVYOFYkTHEhUEtGR3BCXGBLPjAtKyl0OCcpJSIyc1hJP15COkNRISpsV09HQ0c6NFI3KWYnVkZEbGJIOGReYStBXTc5YyZLbztvX05iPGJXM0dlTSdnKz1qal5aUG9fUDlZS09YcmQ5K1VyPUwoSyRZVzJyVnV+PmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDEzCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTQyIDAwMDAwIG4gCjAwMDAwMDAyNDkgMDAwMDAgbiAKMDAwMDAwMDM2MSAwMDAwMCBuIAowMDAwMDAwNDcwIDAwMDAwIG4gCjAwMDAwMDA1NTMgMDAwMDAgbiAKMDAwMDAwMDYzMCAwMDAwMCBuIAowMDAwMDAwNzQwIDAwMDAwIG4gCjAwMDAwMDA5MzUgMDAwMDAgbiAKMDAwMDAwMTAwNCAwMDAwMCBuIAowMDAwMDAxMzEwIDAwMDAwIG4gCjAwMDAwMDEzNzAgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8MmI5YjM3OWIwZTFlNDk2M2RlNTE2YjYxOWE0NDlhZTA+PDJiOWIzNzliMGUxZTQ5NjNkZTUxNmI2MTlhNDQ5YWUwPl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyAxMCAwIFIKL1Jvb3QgOSAwIFIKL1NpemUgMTMKPj4Kc3RhcnR4cmVmCjM0NTYKJSVFT0YK" download="WiDS-Vancouver-send-to-your-boss.pdf">
+            Download the template
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 12l6 6 6-6M5 20h14"/></svg>
+          </a>
+          <span class="boss-note-fine">One page, PDF, no email required.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="register" id="register">
     <div class="section-inner">
       <div class="register-panel reveal">
@@ -866,6 +918,32 @@
     }
     if (reduced) { frame(); } else { requestAnimationFrame(frame); }
   }
+})();
+
+/* "send this to your boss" download — a plain data: URI + download
+   attribute works as-is on a normal static deploy (e.g. the Vercel
+   build), but the Artifact preview on claude.ai doesn't let pages
+   trigger downloads directly. Where that's the case, window.claude is
+   present: intercept the click and hand the file over through the
+   platform's downloads capability instead. Everywhere else, do nothing
+   and let the anchor's native download behavior run. */
+(function(){
+  if (typeof window.claude === 'undefined' || typeof window.claude.use !== 'function') return;
+  var link = document.querySelector('.boss-panel a[download]');
+  if (!link) return;
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    window.claude.use('downloads').then(function(downloads){
+      if (!downloads) return;
+      var href = link.getAttribute('href');
+      var b64 = href.split(',')[1];
+      var bytes = atob(b64);
+      var arr = new Uint8Array(bytes.length);
+      for (var i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+      var blob = new Blob([arr], { type: 'application/pdf' });
+      downloads.save({ filename: link.getAttribute('download'), data: blob }).catch(function(){});
+    }).catch(function(){});
+  });
 })();
 </script>
 </body>
